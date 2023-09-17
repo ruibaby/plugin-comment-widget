@@ -187,6 +187,7 @@ provide<Ref<string[]>>("upvotedReplies", upvotedReplies);
         :page="comments.page"
         :size="comments.size"
         :total="comments.total"
+        :size-options="[20, 30, 50, 100]"
         class="bg-transparent"
         @change="handlePaginationChange"
       />

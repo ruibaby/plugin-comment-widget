@@ -2,6 +2,10 @@ apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
   name: PluginCommentWidget
+  annotations:
+    # Add supports for Halo App Store
+    # https://halo.run/store/apps/app-YXyaD
+    "store.halo.run/app-id": "app-YXyaD"
 spec:
   enabled: true
   requires: ">=2.6.0"
