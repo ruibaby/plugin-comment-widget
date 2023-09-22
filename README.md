@@ -5,7 +5,7 @@ Halo 2.0 的通用评论组件插件，为前台提供完整的评论解决方�
 ## 使用方式
 
 1. 下载，目前提供以下两个下载方式：
-    - GitHub Releases：访问 [Releases](https://github.com/halo-sigs/plugin-comment-widget/releases) 下载 Assets 中的 JAR 文件。
+    - GitHub Releases：访问 [Releases](https://github.com/halo-dev/plugin-comment-widget/releases) 下载 Assets 中的 JAR 文件。
     - Halo 应用市场：<https://halo.run/store/apps/app-YXyaD>。
 2. 安装，插件安装和更新方式可参考：<https://docs.halo.run/user-guide/plugins>。
 
@@ -14,7 +14,7 @@ Halo 2.0 的通用评论组件插件，为前台提供完整的评论解决方�
 ## 开发环境
 
 ```bash
-git clone git@github.com:halo-sigs/plugin-comment-widget.git
+git clone git@github.com:halo-dev/plugin-comment-widget.git
 
 # 或者当你 fork 之后
 
