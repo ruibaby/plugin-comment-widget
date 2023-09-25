@@ -15,5 +15,5 @@
 }
 
 .btn-secondary {
-  @apply dark:border-slate-600 dark:border-solid	dark:border dark:bg-slate-900 dark:text-slate-50 dark:hover:text-white dark:hover:bg-slate-800;
+  @apply dark:border dark:border-solid	dark:border-slate-600 dark:bg-slate-900 dark:text-slate-50 dark:hover:bg-slate-800 dark:hover:text-white;
 }

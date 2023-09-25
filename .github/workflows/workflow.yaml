@@ -2,10 +2,20 @@ name: Build Plugin JAR File
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - "**"
+      - "!**.md"
   release:
     types:
       - created
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**"
+      - "!**.md"
 
 jobs:
   build:
@@ -23,12 +33,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - uses: pnpm/action-setup@v2.0.1
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 7
+          version: 8
           run_install: false
       - name: Get pnpm store directory
         id: pnpm-cache

@@ -1,9 +1,9 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
-  "include": ["./vite.config.*"],
+  "include": ["./vite.config.*", "./vitest.config.*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["node", "vitest"],
+    "types": ["node"],
     "moduleResolution": "Bundler"
   }
 }

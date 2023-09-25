@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// @ts-ignore
 import { Comment } from "@halo-dev/comment-widget";
 import "@halo-dev/comment-widget/dist/style.css";
 import { useLocalStorage } from "@vueuse/core";
