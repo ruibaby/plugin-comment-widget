@@ -9,6 +9,7 @@
       "@/*": ["./src/*"]
     },
     "ignoreDeprecations": "5.0",
-    "types": ["unplugin-icons/types/vue"]
+    "types": ["unplugin-icons/types/vue"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
   }
 }

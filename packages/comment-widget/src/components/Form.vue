@@ -12,12 +12,13 @@ import type {
 // @ts-ignore
 import { Picker, EmojiIndex } from "emoji-mart-vue-fast/src";
 import "emoji-mart-vue-fast/css/emoji-mart.css";
-import { inject, ref, watchEffect, type Ref } from "vue";
+import { inject, ref, type Ref } from "vue";
 import { apiClient } from "@/utils/api-client";
-import { useLocalStorage, useMagicKeys } from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core";
 import axios from "axios";
 import { onClickOutside } from "@vueuse/core";
 import autosize from "autosize";
+import { isMac } from "@/utils/device";
 
 interface CustomAccount {
   displayName: string;
@@ -240,16 +241,20 @@ onClickOutside(emojiPickerRef, () => {
 });
 
 // KeyBoard shortcuts
-const { Command_Enter } = useMagicKeys();
-
-watchEffect(() => {
-  if (Command_Enter.value) {
-    handleSubmit();
+function onKeydown(e: KeyboardEvent) {
+  if (!raw.value) {
+    return;
   }
-});
+
+  const isEnter = e.key === "Enter";
+  const isShortcut = isMac ? e.metaKey : e.ctrlKey;
+  if (isShortcut && isEnter) {
+    handleSubmit();
+    e.preventDefault();
+  }
+}
 
 // login
-
 const parentDomId = `#comment-${[group?.replaceAll(".", "-"), kind, name]
   .join("-")
   .replaceAll(/-+/g, "-")}`;
@@ -264,7 +269,7 @@ function handleOpenLoginPage() {
 </script>
 
 <template>
-  <div class="comment-form flex gap-4">
+  <div class="comment-form flex gap-4" @keydown="onKeydown">
     <div class="flex flex-1 flex-col gap-y-4">
       <textarea
         ref="contentInputRef"
