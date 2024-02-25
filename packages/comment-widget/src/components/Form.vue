@@ -306,6 +306,7 @@ function handleOpenLoginPage() {
 
         <a
           class="select-none text-xs text-gray-600 transition-all hover:text-gray-900 dark:text-slate-200 dark:hover:text-slate-400"
+          rel="nofollow"
           :href="loginUrl"
         >
           （已有该站点的账号）
