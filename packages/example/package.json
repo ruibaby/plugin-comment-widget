@@ -1,8 +1,6 @@
 {
   "scripts": {
-    "dev": "vite",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint ./src --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix"
+    "dev": "vite"
   },
   "dependencies": {
     "@halo-dev/comment-widget": "workspace:*"

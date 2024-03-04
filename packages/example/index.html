@@ -1,13 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link href="/favicon.ico" rel="icon" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>@halo-dev/comment-widget - example</title>
-  </head>
-  <body class="bg-slate-50 dark:bg-slate-900">
-    <div id="app"></div>
     <script src="/src/main.ts" type="module"></script>
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+      }
+
+      :root {
+        color-scheme: dark;
+
+        /* Basic */
+        --halo-comment-widget-base-border-radius: 0.5em;
+
+        /* Color */
+
+        /* Component */
+        --halo-comment-widget-component-avatar-rounded: 9999px;
+        --halo-comment-widget-component-avatar-size: 2.2em;
+        --halo-comment-widget-component-form-input-bg-color: #475569;
+        --halo-comment-widget-component-form-input-color: #ffffff;
+        --halo-comment-widget-component-form-input-border-color: #495056;
+        --halo-comment-widget-component-form-input-border-color-focus: #65a3ff;
+        --halo-comment-widget-component-form-input-box-shadow-focus: 0 0 0
+          0.15em #1c3966;
+        --halo-comment-widget-component-form-button-login-bg-color: #334155;
+        --halo-comment-widget-component-form-button-login-bg-color-hover: #475569;
+        --halo-comment-widget-component-form-button-login-border-color: #475569;
+        --halo-comment-widget-component-form-button-submit-border-color: #475569;
+        --halo-comment-widget-component-form-button-submit-border-color-hover: #64748b;
+        --halo-comment-widget-component-form-button-emoji-color: #cbd5e1;
+
+        --halo-comment-widget-component-comment-item-action-bg-color-hover: #475569;
+        --halo-comment-widget-component-comment-item-action-color: #64748b;
+        --halo-comment-widget-component-comment-item-action-color-hover: #94a3b8;
+
+        --halo-comment-widget-component-pagination-button-bg-color-hover: #475569;
+        --halo-comment-widget-component-pagination-button-bg-color-active: #475569;
+        --halo-comment-widget-component-pagination-button-border-color-active: #475569;
+
+        --halo-comment-widget-component-emoji-picker-rgb-color: 222, 222, 221;
+        --halo-comment-widget-component-emoji-picker-rgb-accent: 58, 130, 247;
+        --halo-comment-widget-component-emoji-picker-rgb-background: 21, 22, 23;
+        --halo-comment-widget-component-emoji-picker-rgb-input: 0, 0, 0;
+        --halo-comment-widget-component-emoji-picker-color-border: rgba(
+          255,
+          255,
+          255,
+          0.1
+        );
+        --halo-comment-widget-component-emoji-picker-color-border-over: rgba(
+          255,
+          255,
+          255,
+          0.2
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <comment-widget
+      baseUrl="https://demo.halo.run"
+      group="content.halo.run"
+      kind="Post"
+      version="v1alpha1"
+      name="e0507f6f-88bb-4d3c-a90a-a88aba222035"
+    ></comment-widget>
   </body>
 </html>

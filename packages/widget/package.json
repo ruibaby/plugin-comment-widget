@@ -1,12 +1,16 @@
 {
-  "scripts": {
-    "build": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "lint": "eslint ./src --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts",
-    "prettier": "prettier --write './src/**/*.{vue,js,jsx,ts,tsx,css,scss,json,yml,yaml,html}'"
-  },
   "license": "GPL-3.0",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "lint": "eslint 'src/**/*.ts'",
+    "prettier": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.gitignore --write"
+  },
   "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
     "@halo-dev/comment-widget": "workspace:*"
+  },
+  "devDependencies": {
+    "rollup-plugin-copy-merge": "^1.0.2"
   }
 }
