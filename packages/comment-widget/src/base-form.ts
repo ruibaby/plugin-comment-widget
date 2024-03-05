@@ -244,7 +244,7 @@ export class BaseForm extends LitElement {
       }
 
       .form__anonymous-inputs a:hover {
-        color: inherit;
+        color: var(--base-color);
       }
 
       input,
@@ -274,11 +274,11 @@ export class BaseForm extends LitElement {
       }
 
       .form__account-info {
+        color: var(--base-color);
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 0.75em;
-        color: initial;
       }
 
       .form__account-info img {

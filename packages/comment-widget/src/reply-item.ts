@@ -228,14 +228,10 @@ export class ReplyItem extends LitElement {
         flex-direction: row;
         align-items: center;
         gap: 0.25em;
-        padding-left: 0.25em;
-        padding-right: 0.25em;
-        padding-top: 0.125em;
-        padding-bottom: 0.125em;
+        padding: 0 0.3em;
         font-weight: 500;
         font-size: 0.75em;
-        line-height: 1em;
-        border-radius: 0.25em;
+        border-radius: 0.3em;
         background-color: #e5e7eb;
         color: #4b5563;
         cursor: pointer;

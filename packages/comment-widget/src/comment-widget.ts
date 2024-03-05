@@ -207,10 +207,10 @@ export class CommentWidget extends LitElement {
       }
 
       .comment-widget__stats {
+        color: var(--base-color);
         font-size: 0.875em;
         margin: 0.875em 0;
         font-weight: 500;
-        color: initial;
       }
     `,
   ];

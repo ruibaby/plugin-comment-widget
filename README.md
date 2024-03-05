@@ -48,6 +48,7 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
 
 | 变量名                                                                  | 描述                     |
 |-------------------------------------------------------------------------|------------------------|
+| `--halo-comment-widget-base-color`                                      | 基础文字颜色             |
 | `--halo-comment-widget-base-border-radius`                              | 基础元素的圆角           |
 | `--halo-comment-widget-base-font-size`                                  | 基础字体大小             |
 | `--halo-comment-widget-base-line-height`                                | 基础行高                 |
@@ -85,6 +86,8 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
 
 ```css
 :root {
+
+  --halo-comment-widget-base-color: ;
   --halo-comment-widget-base-border-radius: ;
   --halo-comment-widget-base-font-size: ;
   --halo-comment-widget-base-line-height: ;
@@ -132,6 +135,8 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
   .color-scheme-auto,
   [data-color-scheme='auto'] {
     color-scheme: dark;
+    
+    --halo-comment-widget-base-color: #ffffff;
     --halo-comment-widget-component-form-input-bg-color: #475569;
     --halo-comment-widget-component-form-input-color: #ffffff;
     --halo-comment-widget-component-form-input-border-color: #495056;
@@ -166,6 +171,7 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
 [data-color-scheme='dark'] {
   color-scheme: dark;
 
+  --halo-comment-widget-base-color: #ffffff;
   --halo-comment-widget-component-form-input-bg-color: #475569;
   --halo-comment-widget-component-form-input-color: #ffffff;
   --halo-comment-widget-component-form-input-border-color: #495056;

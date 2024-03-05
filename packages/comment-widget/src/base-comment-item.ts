@@ -82,7 +82,7 @@ export class BaseCommentItem extends LitElement {
       }
 
       .item__author {
-        color: initial;
+        color: var(--base-color);
         font-weight: 500;
         font-size: 0.875em;
       }
@@ -98,7 +98,7 @@ export class BaseCommentItem extends LitElement {
       }
 
       .item__content pre {
-        color: initial;
+        color: var(--base-color);
         white-space: pre-wrap;
         overflow-wrap: break-word;
         word-break: break-all;

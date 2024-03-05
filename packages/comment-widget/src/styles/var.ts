@@ -3,6 +3,7 @@ import { css } from 'lit';
 const varStyles = css`
   :host {
     /* Base */
+    --base-color: var(--halo-comment-widget-base-color, #333);
     --base-border-radius: var(--halo-comment-widget-base-border-radius, 0.4em);
     --base-font-size: var(--halo-comment-widget-base-font-size, 1rem);
     --base-line-height: var(--halo-comment-widget-base-line-height, 1.25em);

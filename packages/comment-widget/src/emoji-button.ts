@@ -119,7 +119,7 @@ export class EmojiButton extends LitElement {
       }
 
       .emoji-button:hover {
-        color: initial;
+        color: var(--base-color);
       }
 
       .form__emoji-panel {
@@ -129,11 +129,24 @@ export class EmojiButton extends LitElement {
         box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
         border-radius: 0.875em;
         overflow: hidden;
+        animation: fadeInUp 0.3s both;
       }
 
       @media (max-width: 640px) {
         .form__emoji-panel {
           right: -7.8em;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translate3d(0, 5%, 0);
+        }
+
+        to {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
         }
       }
     `,
