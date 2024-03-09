@@ -88,7 +88,7 @@ export class BaseCommentItem extends LitElement {
       }
 
       .item__meta-info {
-        color: darkcyan;
+        color: var(--base-info-color);
         font-size: 0.75em;
         line-height: 1em;
       }

@@ -4,6 +4,7 @@
     color-scheme: dark;
 
     --halo-comment-widget-base-color: #ffffff;
+    --halo-comment-widget-base-info-color: #64748b;
     --halo-comment-widget-component-form-input-bg-color: #475569;
     --halo-comment-widget-component-form-input-color: #ffffff;
     --halo-comment-widget-component-form-input-border-color: #495056;
@@ -17,7 +18,6 @@
     --halo-comment-widget-component-form-button-emoji-color: #cbd5e1;
 
     --halo-comment-widget-component-comment-item-action-bg-color-hover: #475569;
-    --halo-comment-widget-component-comment-item-action-color: #64748b;
     --halo-comment-widget-component-comment-item-action-color-hover: #94a3b8;
 
     --halo-comment-widget-component-pagination-button-bg-color-hover: #475569;
@@ -39,6 +39,7 @@
   color-scheme: dark;
 
   --halo-comment-widget-base-color: #ffffff;
+  --halo-comment-widget-base-info-color: #64748b;
   --halo-comment-widget-component-form-input-bg-color: #475569;
   --halo-comment-widget-component-form-input-color: #ffffff;
   --halo-comment-widget-component-form-input-border-color: #495056;
@@ -52,7 +53,6 @@
   --halo-comment-widget-component-form-button-emoji-color: #cbd5e1;
 
   --halo-comment-widget-component-comment-item-action-bg-color-hover: #475569;
-  --halo-comment-widget-component-comment-item-action-color: #64748b;
   --halo-comment-widget-component-comment-item-action-color-hover: #94a3b8;
 
   --halo-comment-widget-component-pagination-button-bg-color-hover: #475569;

@@ -36,13 +36,13 @@ export class BaseCommentItemAction extends LitElement {
     }
 
     .item-action__icon ::slotted(svg) {
-      color: var(--component-comment-item-action-color);
+      color: var(--base-info-color);
       width: 1em;
       height: 1em;
     }
 
     .item-action__text {
-      color: var(--component-comment-item-action-color);
+      color: var(--base-info-color);
       user-select: none;
     }
 

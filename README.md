@@ -49,6 +49,7 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
 | 变量名                                                                  | 描述                     |
 |-------------------------------------------------------------------------|------------------------|
 | `--halo-comment-widget-base-color`                                      | 基础文字颜色             |
+| `--halo-comment-widget-base-info-color`                                 | 非重要突出文字           |
 | `--halo-comment-widget-base-border-radius`                              | 基础元素的圆角           |
 | `--halo-comment-widget-base-font-size`                                  | 基础字体大小             |
 | `--halo-comment-widget-base-line-height`                                | 基础行高                 |
@@ -69,7 +70,6 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
 | `--halo-comment-widget-component-form-button-submit-border-color-hover` | 提交按钮悬停边框颜色     |
 | `--halo-comment-widget-component-form-button-emoji-color`               | 表情按钮颜色             |
 | `--halo-comment-widget-component-comment-item-action-bg-color-hover`    | 评论项操作悬停背景颜色   |
-| `--halo-comment-widget-component-comment-item-action-color`             | 评论项操作颜色           |
 | `--halo-comment-widget-component-comment-item-action-color-hover`       | 评论项操作悬停颜色       |
 | `--halo-comment-widget-component-pagination-button-bg-color-hover`      | 分页按钮悬停背景颜色     |
 | `--halo-comment-widget-component-pagination-button-bg-color-active`     | 分页按钮活动状态背景颜色 |
@@ -88,6 +88,7 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
 :root {
 
   --halo-comment-widget-base-color: ;
+  --halo-comment-widget-base-info-color: ;
   --halo-comment-widget-base-border-radius: ;
   --halo-comment-widget-base-font-size: ;
   --halo-comment-widget-base-line-height: ;
@@ -108,7 +109,6 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
   --halo-comment-widget-component-form-button-submit-border-color-hover: ;
   --halo-comment-widget-component-form-button-emoji-color: ;
   --halo-comment-widget-component-comment-item-action-bg-color-hover: ;
-  --halo-comment-widget-component-comment-item-action-color: ;
   --halo-comment-widget-component-comment-item-action-color-hover: ;
   --halo-comment-widget-component-pagination-button-bg-color-hover: ;
   --halo-comment-widget-component-pagination-button-bg-color-active: ;
@@ -137,6 +137,7 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
     color-scheme: dark;
     
     --halo-comment-widget-base-color: #ffffff;
+    --halo-comment-widget-base-info-color: #64748b;
     --halo-comment-widget-component-form-input-bg-color: #475569;
     --halo-comment-widget-component-form-input-color: #ffffff;
     --halo-comment-widget-component-form-input-border-color: #495056;
@@ -150,7 +151,6 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
     --halo-comment-widget-component-form-button-emoji-color: #cbd5e1;
 
     --halo-comment-widget-component-comment-item-action-bg-color-hover: #475569;
-    --halo-comment-widget-component-comment-item-action-color: #64748b;
     --halo-comment-widget-component-comment-item-action-color-hover: #94a3b8;
 
     --halo-comment-widget-component-pagination-button-bg-color-hover: #475569;
@@ -172,6 +172,7 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
   color-scheme: dark;
 
   --halo-comment-widget-base-color: #ffffff;
+  --halo-comment-widget-base-info-color: #64748b;
   --halo-comment-widget-component-form-input-bg-color: #475569;
   --halo-comment-widget-component-form-input-color: #ffffff;
   --halo-comment-widget-component-form-input-border-color: #495056;
@@ -185,7 +186,6 @@ Halo 插件的详细开发文档可查阅 [插件开发](https://docs.halo.run/c
   --halo-comment-widget-component-form-button-emoji-color: #cbd5e1;
 
   --halo-comment-widget-component-comment-item-action-bg-color-hover: #475569;
-  --halo-comment-widget-component-comment-item-action-color: #64748b;
   --halo-comment-widget-component-comment-item-action-color-hover: #94a3b8;
 
   --halo-comment-widget-component-pagination-button-bg-color-hover: #475569;

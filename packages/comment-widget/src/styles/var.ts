@@ -4,6 +4,7 @@ const varStyles = css`
   :host {
     /* Base */
     --base-color: var(--halo-comment-widget-base-color, #333);
+    --base-info-color: var(--halo-comment-widget-base-info-color, #4b5563);
     --base-border-radius: var(--halo-comment-widget-base-border-radius, 0.4em);
     --base-font-size: var(--halo-comment-widget-base-font-size, 1rem);
     --base-line-height: var(--halo-comment-widget-base-line-height, 1.25em);
@@ -79,10 +80,6 @@ const varStyles = css`
     --component-comment-item-action-bg-color-hover: var(
       --halo-comment-widget-component-comment-item-action-bg-color-hover,
       #f3f4f6
-    );
-    --component-comment-item-action-color: var(
-      --halo-comment-widget-component-comment-item-action-color,
-      #4b5563
     );
     --component-comment-item-action-color-hover: var(
       --halo-comment-widget-component-comment-item-action-color-hover,

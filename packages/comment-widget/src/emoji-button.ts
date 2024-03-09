@@ -113,13 +113,13 @@ export class EmojiButton extends LitElement {
       }
 
       .emoji-button {
-        color: var(--component-form-button-emoji-color);
+        color: var(--base-color);
         display: inline-flex;
         position: relative;
       }
 
       .emoji-button:hover {
-        color: var(--base-color);
+        opacity: 0.8;
       }
 
       .form__emoji-panel {
