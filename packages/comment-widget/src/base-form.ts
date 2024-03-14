@@ -109,6 +109,24 @@ export class BaseForm extends LitElement {
     }
   }
 
+  onKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      const form = this.shadowRoot?.querySelector('form');
+      e.preventDefault();
+      form?.requestSubmit();
+    }
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('keydown', this.onKeydown);
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this.onKeydown);
+  }
+
   override render() {
     return html`
       <form class="form" @submit="${this.onSubmit}">
