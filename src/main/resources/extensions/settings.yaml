@@ -1,0 +1,22 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: plugin-comment-widget-settings
+spec:
+  forms:
+    - group: basic
+      label: 基本设置
+      formSchema:
+        - $formkit: checkbox
+          label: 同时加载评论的回复
+          name: withReplies
+          id: withReplies
+          key: withReplies
+          value: false
+        - $formkit: number
+          label: 默认加载回复条数
+          name: replySize
+          id: replySize
+          key: replySize
+          validation: required
+          value: 20

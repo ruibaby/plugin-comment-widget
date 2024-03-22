@@ -223,6 +223,10 @@ export class BaseForm extends LitElement {
     form?.reset();
   }
 
+  setFocus() {
+    this.textareaRef.value?.focus();
+  }
+
   static override styles = [
     varStyles,
     baseStyles,

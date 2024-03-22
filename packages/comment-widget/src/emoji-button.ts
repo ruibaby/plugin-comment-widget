@@ -118,7 +118,7 @@ export class EmojiButton extends LitElement {
         position: relative;
       }
 
-      .emoji-button:hover {
+      .emoji-button:hover icon-emoji {
         opacity: 0.8;
       }
 

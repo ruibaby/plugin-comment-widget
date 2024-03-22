@@ -12,8 +12,10 @@ import {
   groupContext,
   kindContext,
   nameContext,
+  replySizeContext,
   toastContext,
   versionContext,
+  withRepliesContext,
 } from './context';
 import './comment-form';
 import './comment-item';
@@ -23,7 +25,7 @@ import { ToastManager } from './lit-toast';
 
 export class CommentWidget extends LitElement {
   @provide({ context: baseUrlContext })
-  @property({ type: String })
+  @property({ type: String, attribute: 'base-url' })
   baseUrl = '';
 
   @provide({ context: kindContext })
@@ -42,8 +44,16 @@ export class CommentWidget extends LitElement {
   @property({ type: String })
   name = '';
 
+  @provide({ context: withRepliesContext })
+  @property({ type: Boolean, attribute: 'with-replies' })
+  withReplies = false;
+
+  @provide({ context: replySizeContext })
+  @property({ type: Number, attribute: 'reply-size' })
+  replySize = 10;
+
   @provide({ context: emojiDataUrlContext })
-  @property({ type: String })
+  @property({ type: String, attribute: 'emoji-data-url' })
   emojiDataUrl = 'https://unpkg.com/@emoji-mart/data';
 
   @provide({ context: currentUserContext })
@@ -84,7 +94,9 @@ export class CommentWidget extends LitElement {
 
   override render() {
     return html`<div class="comment-widget">
-      <comment-form @reload="${() => this.fetchComments(1)}"></comment-form>
+      <comment-form
+        @reload="${() => this.fetchComments({ page: 1, scrollIntoView: true })}"
+      ></comment-form>
       ${this.loading
         ? html`<loading-block></loading-block>`
         : html`
@@ -135,7 +147,8 @@ export class CommentWidget extends LitElement {
     this.currentUser = data.user.metadata.name === 'anonymousUser' ? undefined : data.user;
   }
 
-  async fetchComments(page?: number) {
+  async fetchComments(options?: { page?: number; scrollIntoView?: boolean }) {
+    const { page, scrollIntoView } = options || {};
     try {
       if (this.comments.items.length === 0) {
         this.loading = true;
@@ -152,6 +165,8 @@ export class CommentWidget extends LitElement {
         `page=${this.comments.page}`,
         `size=${this.comments.size}`,
         `version=${this.version}`,
+        `withReplies=${this.withReplies}`,
+        `replySize=${this.replySize}`,
       ];
 
       const response = await fetch(
@@ -170,14 +185,17 @@ export class CommentWidget extends LitElement {
       }
     } finally {
       this.loading = false;
-      this.scrollIntoView({ block: 'start', inline: 'start', behavior: 'smooth' });
+
+      if (scrollIntoView) {
+        this.scrollIntoView({ block: 'start', inline: 'start', behavior: 'smooth' });
+      }
     }
   }
 
   async onPageChange(e: CustomEvent) {
     const data = e.detail;
     this.comments.page = data.page;
-    await this.fetchComments();
+    await this.fetchComments({ scrollIntoView: true });
   }
 
   override connectedCallback(): void {

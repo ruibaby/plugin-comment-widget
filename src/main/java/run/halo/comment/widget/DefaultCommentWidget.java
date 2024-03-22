@@ -1,20 +1,20 @@
 package run.halo.comment.widget;
 
+import java.util.Properties;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.pf4j.PluginWrapper;
 import org.springframework.stereotype.Component;
-import org.springframework.util.PropertyPlaceholderHelper;
 import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.model.IAttribute;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
+import run.halo.app.plugin.SettingFetcher;
 import run.halo.app.theme.dialect.CommentWidget;
-
-import java.util.Properties;
 
 /**
  * A default implementation of {@link CommentWidget}.
@@ -29,6 +29,7 @@ public class DefaultCommentWidget implements CommentWidget {
     static final PropertyPlaceholderHelper PROPERTY_PLACEHOLDER_HELPER = new PropertyPlaceholderHelper("${", "}");
 
     private final PluginWrapper pluginWrapper;
+    private final SettingFetcher settingFetcher;
 
     @Override
     public void render(ITemplateContext context,
@@ -63,6 +64,12 @@ public class DefaultCommentWidget implements CommentWidget {
         properties.setProperty("name", nameAttribute.getValue());
         properties.setProperty("domId", domIdFrom(group, kindAttribute.getValue(), nameAttribute.getValue()));
 
+        var basicConfig = settingFetcher.fetch(BasicConfig.GROUP, BasicConfig.class)
+                .orElse(new BasicConfig());
+        // placeholderHelper only support string, so we need to convert boolean to string
+        properties.setProperty("withReplies", String.valueOf(basicConfig.isWithReplies()));
+        properties.setProperty("replySize", String.valueOf(basicConfig.getReplySize()));
+
         return PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders("""
                 <div id="${domId}"></div>
                 <script>
@@ -71,11 +78,20 @@ public class DefaultCommentWidget implements CommentWidget {
                     {
                       group: "${group}",
                       kind: "${kind}",
-                      name: "${name}"
+                      name: "${name}",
+                      withReplies: ${withReplies},
+                      replySize: ${replySize}
                     }
                   );
                 </script>
                 """, properties);
+    }
+
+    @Data
+    static class BasicConfig {
+        public static final String GROUP = "basic";
+        private boolean withReplies;
+        private int replySize;
     }
 
     private String domIdFrom(String group, String kind, String name) {
@@ -83,7 +99,7 @@ public class DefaultCommentWidget implements CommentWidget {
         Assert.notNull(kind, "The kind must not be null.");
         String groupKindNameAsDomId = String.join("-", group, kind, name);
         return "comment-" + groupKindNameAsDomId.replaceAll("[^\\-_a-zA-Z0-9\\s]", "-")
-            .replaceAll("(-)+", "-");
+                .replaceAll("(-)+", "-");
     }
 
     private String getGroup(IAttribute groupAttribute) {

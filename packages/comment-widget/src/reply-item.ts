@@ -157,6 +157,7 @@ export class ReplyItem extends LitElement {
         <base-comment-item-action
           slot="action"
           @click="${() => (this.showReplyForm = !this.showReplyForm)}"
+          .text=${this.showReplyForm ? '取消回复' : '回复'}
         >
           <svg
             slot="icon"
@@ -171,7 +172,7 @@ export class ReplyItem extends LitElement {
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="m3 20l1.3-3.9C1.976 12.663 2.874 8.228 6.4 5.726c3.526-2.501 8.59-2.296 11.845.48c3.255 2.777 3.695 7.266 1.029 10.501C16.608 19.942 11.659 20.922 7.7 19L3 20"
+              d="M12.007 19.98A9.869 9.869 0 0 1 7.7 19L3 20l1.3-3.9C1.976 12.663 2.874 8.228 6.4 5.726c3.526-2.501 8.59-2.296 11.845.48c1.992 1.7 2.93 4.04 2.747 6.34M16 19h6m-3-3v6"
             />
           </svg>
         </base-comment-item-action>

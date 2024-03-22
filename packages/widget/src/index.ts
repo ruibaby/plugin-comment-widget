@@ -3,7 +3,15 @@ import '@halo-dev/comment-widget/var.css';
 
 export { CommentWidget };
 
-export function init(el: string, props: Record<string, unknown>) {
+interface Props {
+  group: string;
+  kind: string;
+  name: string;
+  withReplies?: boolean;
+  replySize?: number;
+}
+
+export function init(el: string, props: Props) {
   const parent = document.querySelector(el) as HTMLElement;
 
   if (!parent) {
@@ -14,10 +22,12 @@ export function init(el: string, props: Record<string, unknown>) {
     'comment-widget'
   ) as CommentWidget;
 
-  commentWidget.kind = props.kind as string;
-  commentWidget.group = props.group as string;
+  commentWidget.kind = props.kind;
+  commentWidget.group = props.group;
   commentWidget.version = 'v1alpha1';
-  commentWidget.name = props.name as string;
+  commentWidget.name = props.name;
+  commentWidget.withReplies = props.withReplies || false;
+  commentWidget.replySize = props.replySize || 10;
   commentWidget.emojiDataUrl =
     '/plugins/PluginCommentWidget/assets/static/emoji/native.json';
 

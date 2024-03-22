@@ -21,7 +21,7 @@ export class BaseCommentItemAction extends LitElement {
       display: inline-flex;
       align-items: center;
       cursor: pointer;
-      margin-right: 0.5em;
+      gap: 0.1em;
     }
 
     .item-action__icon {
@@ -44,6 +44,7 @@ export class BaseCommentItemAction extends LitElement {
     .item-action__text {
       color: var(--base-info-color);
       user-select: none;
+      font-size: 0.75em;
     }
 
     .item-action:hover .item-action__icon {

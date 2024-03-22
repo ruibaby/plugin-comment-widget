@@ -38,6 +38,15 @@ export class ReplyForm extends LitElement {
 
   baseFormRef: Ref<BaseForm> = createRef<BaseForm>();
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    setTimeout(() => {
+      this.scrollIntoView({ block: 'center', inline: 'start', behavior: 'smooth' });
+      this.baseFormRef.value?.setFocus();
+    }, 0);
+  }
+
   override render() {
     return html`<base-form ${ref(this.baseFormRef)} @submit="${this.onSubmit}"></base-form>`;
   }

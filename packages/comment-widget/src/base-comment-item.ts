@@ -108,6 +108,7 @@ export class BaseCommentItem extends LitElement {
         margin-top: 0.5em;
         display: flex;
         align-items: center;
+        gap: 0.7em;
       }
 
       .item--animate-breath {
