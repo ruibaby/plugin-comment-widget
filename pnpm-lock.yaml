@@ -48,8 +48,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@halo-dev/api-client':
-        specifier: ^2.13.0
-        version: 2.13.0
+        specifier: ^2.14.0
+        version: 2.14.0
       '@lit/context':
         specifier: ^1.1.0
         version: 1.1.0
@@ -351,8 +351,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@halo-dev/api-client@2.13.0:
-    resolution: {integrity: sha512-BdUvu5IqoUdJ6JemHmp5bYNs8P/zth4oPm3qUy0aelWLh/hi3tHG2EVk0JZlgeamyxMD2SGGyh65ehntmPGVsQ==}
+  /@halo-dev/api-client@2.14.0:
+    resolution: {integrity: sha512-koAm1WR37Luy17/tkA0Ly+2QMzN2lrsXWGuMrF+bN48KKftwXp6dFsO2VNP3bqOXxvtOGGyPql8n5RzWP947HQ==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:

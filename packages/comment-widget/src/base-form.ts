@@ -167,18 +167,16 @@ export class BaseForm extends LitElement {
           : ''}
 
         <div class="form__footer">
-          <div class="form-account">
-            ${this.currentUser ? this.renderAccountInfo() : ''}
-            ${!this.currentUser && !this.allowAnonymousComments
-              ? html`<button
-                  @click=${this.handleOpenLoginPage}
-                  class="form__button--login"
-                  type="button"
-                >
-                  登录
-                </button> `
-              : ''}
-          </div>
+          ${this.currentUser ? this.renderAccountInfo() : ''}
+          ${!this.currentUser && !this.allowAnonymousComments
+            ? html`<button
+                @click=${this.handleOpenLoginPage}
+                class="form__button--login"
+                type="button"
+              >
+                登录
+              </button> `
+            : ''}
           <div class="form__actions">
             <emoji-button @emoji-select=${this.onEmojiSelect}></emoji-button>
             <button type="submit" class="form__button--submit">
@@ -334,12 +332,16 @@ export class BaseForm extends LitElement {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75em;
       }
 
       .form__actions {
         display: flex;
         align-items: center;
         gap: 0.75em;
+        flex: 1 1 auto;
+        justify-content: flex-end;
       }
 
       .form__button--submit {

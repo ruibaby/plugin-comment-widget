@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { CommentVoList, User } from '@halo-dev/api-client';
 import { repeat } from 'lit/directives/repeat.js';
@@ -44,13 +44,19 @@ export class CommentWidget extends LitElement {
   @property({ type: String })
   name = '';
 
+  @property({ type: Number, attribute: 'size' })
+  size: number = 20;
+
+  @provide({ context: replySizeContext })
+  @property({ type: Number, attribute: 'reply-size' })
+  replySize: number = 10;
+
   @provide({ context: withRepliesContext })
   @property({ type: Boolean, attribute: 'with-replies' })
   withReplies = false;
 
-  @provide({ context: replySizeContext })
-  @property({ type: Number, attribute: 'reply-size' })
-  replySize = 10;
+  @property({ type: Number, attribute: 'with-reply-size' })
+  withReplySize = 10;
 
   @provide({ context: emojiDataUrlContext })
   @property({ type: String, attribute: 'emoji-data-url' })
@@ -93,12 +99,12 @@ export class CommentWidget extends LitElement {
   }
 
   override render() {
-    return html`<div class="comment-widget">
+    return html` <div class="comment-widget">
       <comment-form
         @reload="${() => this.fetchComments({ page: 1, scrollIntoView: true })}"
       ></comment-form>
       ${this.loading
-        ? html`<loading-block></loading-block>`
+        ? html` <loading-block></loading-block>`
         : html`
             <div class="comment-widget__wrapper">
               <div class="comment-widget__stats">
@@ -109,7 +115,7 @@ export class CommentWidget extends LitElement {
                 ${repeat(
                   this.comments.items,
                   (item) => item.metadata.name,
-                  (item) => html`<comment-item .comment=${item}></comment-item>`
+                  (item) => html` <comment-item .comment=${item}></comment-item>`
                 )}
               </div>
             </div>
@@ -163,10 +169,10 @@ export class CommentWidget extends LitElement {
         `kind=${this.kind}`,
         `name=${this.name}`,
         `page=${this.comments.page}`,
-        `size=${this.comments.size}`,
+        `size=${this.size}`,
         `version=${this.version}`,
         `withReplies=${this.withReplies}`,
-        `replySize=${this.replySize}`,
+        `replySize=${this.withReplySize}`,
       ];
 
       const response = await fetch(
@@ -177,8 +183,7 @@ export class CommentWidget extends LitElement {
         throw new Error('评论列表加载失败，请稍后重试');
       }
 
-      const data = await response.json();
-      this.comments = data;
+      this.comments = await response.json();
     } catch (error) {
       if (error instanceof Error) {
         this.toastManager?.error(error.message);

@@ -1,5 +1,5 @@
 import { CommentVo, ReplyVo, ReplyVoList } from '@halo-dev/api-client';
-import { LitElement, css, html } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { consume } from '@lit/context';
@@ -50,7 +50,7 @@ export class CommentReplies extends LitElement {
   toastManager: ToastManager | undefined;
 
   override render() {
-    return html`<div class="replies__wrapper">
+    return html` <div class="replies__wrapper">
       ${this.replies.length
         ? html`
             <div class="replies__list">
@@ -58,7 +58,7 @@ export class CommentReplies extends LitElement {
                 this.replies,
                 (item) => item.metadata.name,
                 (item) =>
-                  html`<reply-item
+                  html` <reply-item
                     .comment=${this.comment}
                     .reply="${item}"
                     .replies=${this.replies}
@@ -70,9 +70,9 @@ export class CommentReplies extends LitElement {
             </div>
           `
         : ''}
-      ${this.loading ? html`<loading-block></loading-block>` : ''}
+      ${this.loading ? html` <loading-block></loading-block>` : ''}
       ${this.hasNext && !this.loading
-        ? html`<div class="replies__next-wrapper">
+        ? html` <div class="replies__next-wrapper">
             <button @click=${this.fetchNext}>加载更多</button>
           </div>`
         : ''}
@@ -123,7 +123,7 @@ export class CommentReplies extends LitElement {
 
   async fetchNext() {
     this.page++;
-    this.fetchReplies({ append: true });
+    await this.fetchReplies({ append: true });
   }
 
   override connectedCallback(): void {

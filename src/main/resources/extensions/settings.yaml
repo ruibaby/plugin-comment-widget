@@ -7,6 +7,16 @@ spec:
     - group: basic
       label: 基本设置
       formSchema:
+        - $formkit: number
+          label: 默认加载评论条数
+          name: size
+          validation: required
+          value: 20
+        - $formkit: number
+          label: 默认加载回复条数
+          name: replySize
+          validation: required
+          value: 10
         - $formkit: checkbox
           label: 同时加载评论的回复
           name: withReplies
@@ -14,9 +24,10 @@ spec:
           key: withReplies
           value: false
         - $formkit: number
-          label: 默认加载回复条数
-          name: replySize
-          id: replySize
-          key: replySize
+          label: 同时加载回复的条数
+          if: "$get(withReplies).value === true"
+          name: withReplySize
+          id: withReplySize
+          key: withReplySize
           validation: required
-          value: 20
+          value: 5

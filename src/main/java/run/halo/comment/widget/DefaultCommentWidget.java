@@ -67,8 +67,10 @@ public class DefaultCommentWidget implements CommentWidget {
         var basicConfig = settingFetcher.fetch(BasicConfig.GROUP, BasicConfig.class)
                 .orElse(new BasicConfig());
         // placeholderHelper only support string, so we need to convert boolean to string
-        properties.setProperty("withReplies", String.valueOf(basicConfig.isWithReplies()));
+        properties.setProperty("size", String.valueOf(basicConfig.getSize()));
         properties.setProperty("replySize", String.valueOf(basicConfig.getReplySize()));
+        properties.setProperty("withReplies", String.valueOf(basicConfig.isWithReplies()));
+        properties.setProperty("withReplySize", String.valueOf(basicConfig.getWithReplySize()));
 
         return PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders("""
                 <div id="${domId}"></div>
@@ -79,8 +81,10 @@ public class DefaultCommentWidget implements CommentWidget {
                       group: "${group}",
                       kind: "${kind}",
                       name: "${name}",
+                      size: ${size},
+                      replySize: ${replySize},
                       withReplies: ${withReplies},
-                      replySize: ${replySize}
+                      withReplySize: ${withReplySize}
                     }
                   );
                 </script>
@@ -90,8 +94,10 @@ public class DefaultCommentWidget implements CommentWidget {
     @Data
     static class BasicConfig {
         public static final String GROUP = "basic";
-        private boolean withReplies;
+        private int size;
         private int replySize;
+        private boolean withReplies;
+        private int withReplySize;
     }
 
     private String domIdFrom(String group, String kind, String name) {
