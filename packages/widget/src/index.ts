@@ -11,6 +11,10 @@ interface Props {
   replySize?: number;
   withReplies?: boolean;
   withReplySize?: number;
+  useAvatarProvider: boolean;
+  avatarProvider?: string;
+  avatarProviderMirror?: string;
+  avatarPolicy?: string;
 }
 
 export function init(el: string, props: Props) {
@@ -34,6 +38,10 @@ export function init(el: string, props: Props) {
   commentWidget.withReplySize = props.withReplySize || 10;
   commentWidget.emojiDataUrl =
     '/plugins/PluginCommentWidget/assets/static/emoji/native.json';
+  commentWidget.useAvatarProvider = props.useAvatarProvider || false;
+  commentWidget.avatarProvider = props.avatarProvider || '';
+  commentWidget.avatarProviderMirror = props.avatarProviderMirror || '';
+  commentWidget.avatarPolicy = props.avatarPolicy || '';
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

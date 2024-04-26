@@ -12,6 +12,7 @@ import { LS_UPVOTED_COMMENTS_KEY } from './constant';
 import varStyles from './styles/var';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import { CommentReplies } from './comment-replies';
+import { getPolicyInstance } from './avatar/avatar-policy';
 
 export class CommentItem extends LitElement {
   @consume({ context: baseUrlContext })
@@ -103,7 +104,7 @@ export class CommentItem extends LitElement {
 
   override render() {
     return html`<base-comment-item
-      .userAvatar="${this.comment?.owner.avatar}"
+      .userAvatar="${handleCommentAvatar(this.comment)}"
       .userDisplayName="${this.comment?.owner.displayName}"
       .content="${this.comment?.spec.content || ''}"
       .creationTime="${this.comment?.spec.creationTime}"
@@ -232,6 +233,14 @@ export class CommentItem extends LitElement {
 }
 
 customElements.get('comment-item') || customElements.define('comment-item', CommentItem);
+
+function handleCommentAvatar(comment: CommentVo | undefined): string | undefined {
+  const avatarPolicy = getPolicyInstance();
+  if (avatarPolicy === undefined) {
+    return comment?.owner.avatar;
+  }
+  return avatarPolicy.applyCommentPolicy(comment);
+}
 
 declare global {
   interface HTMLElementTagNameMap {

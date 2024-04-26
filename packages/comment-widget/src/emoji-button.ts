@@ -83,7 +83,7 @@ export class EmojiButton extends LitElement {
   }
 
   override render() {
-    return html`<button class="emoji-button" type="button">
+    return html`<button class="emoji-button" type="button" aria-label="选择表情">
       ${this.emojiLoading
         ? html`<icon-loading></icon-loading>`
         : html`<icon-emoji @click=${this.handleOpenEmojiPicker}></icon-emoji>`}

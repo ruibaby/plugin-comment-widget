@@ -31,3 +31,38 @@ spec:
           key: withReplySize
           validation: required
           value: 5
+    - group: avatar
+      label: 头像设置
+      formSchema:
+        - $formkit: checkbox
+          label: 是否启用第三方头像
+          name: enable
+          id: enable
+          key: enable
+          value: false
+        - $formkit: select
+          label: 头像服务提供者
+          if: "$get(enable).value === true"
+          name: provider
+          options:
+            - label: 'Gravatar'
+              value: 'gravatar'
+          value: "gravatar"
+        - $formkit: text
+          label: 头像服务镜像地址
+          if: "$get(enable).value === true"
+          name: providerMirror
+          value: ""
+          help: 使用官方源则留空, 示例：https://gravatar.com
+        - $formkit: select
+          label: 头像策略
+          if: "$get(enable).value === true"
+          name: policy
+          options:
+            - label: '仅匿名用户'
+              value: 'anonymousUser'
+            - label: '所有用户'
+              value: 'allUser'
+            - label: '匿名&无头像用户'
+              value: 'noAvatarUser'
+          value: "anonymousUser"

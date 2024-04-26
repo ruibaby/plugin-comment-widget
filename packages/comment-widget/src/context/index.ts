@@ -9,6 +9,10 @@ export const nameContext = createContext<string>(Symbol('name'));
 export const versionContext = createContext<string>(Symbol('version'));
 export const replySizeContext = createContext<number>(Symbol('replySize'));
 export const withRepliesContext = createContext<boolean>(Symbol('withReplies'));
+export const useAvatarProviderContext = createContext<boolean>(Symbol('useAvatarProvider'));
+export const avatarProviderContext = createContext<string>(Symbol('avatarProvider'));
+export const avatarProviderMirrorContext = createContext<string>(Symbol('avatarProviderMirror'));
+export const avatarPolicyContext = createContext<string>(Symbol('avatarPolicy'));
 
 export const allowAnonymousCommentsContext = createContext<boolean>(
   Symbol('allowAnonymousComments')
