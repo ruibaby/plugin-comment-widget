@@ -10,10 +10,12 @@ spec:
   enabled: true
   requires: ">=2.15.0"
   author:
-    name: Halo OSS Team
+    name: Halo
     website: https://github.com/halo-dev
   logo: logo.svg
-  homepage: https://github.com/halo-dev/plugin-comment-widget
+  homepage: https://www.halo.run/store/apps/app-YXyaD
+  repo: https://github.com/halo-dev/plugin-comment-widget
+  issues: https://github.com/halo-dev/plugin-comment-widget/issues
   displayName: "评论组件"
   description: "为用户前台提供完整的评论解决方案"
   configMapName: plugin-comment-widget-configmap
