@@ -92,7 +92,7 @@ export class CommentReplies extends LitElement {
         this.page = 1;
       }
 
-      const queryParams = [`page=${this.page || 0}`, `size=${this.replySize}`];
+      const queryParams = [`page=${this.page || 1}`, `size=${this.replySize}`];
 
       const response = await fetch(
         `${this.baseUrl}/apis/api.halo.run/v1alpha1/comments/${this.comment?.metadata.name}/reply?${queryParams.join('&')}`
@@ -122,8 +122,14 @@ export class CommentReplies extends LitElement {
   }
 
   async fetchNext() {
-    this.page++;
-    await this.fetchReplies({ append: true });
+    if (this.withReplies) {
+      // if withReplies is true, we need to reload the replies list
+      await this.fetchReplies({ append: !(this.page === 1) });
+      this.page++;
+    } else {
+      this.page++;
+      await this.fetchReplies({ append: true });
+    }
   }
 
   override connectedCallback(): void {

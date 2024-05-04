@@ -1,6 +1,6 @@
 import './emoji-button';
-import { LitElement, css, html } from 'lit';
-import { Ref, createRef, ref } from 'lit/directives/ref.js';
+import { css, html, LitElement } from 'lit';
+import { createRef, Ref, ref } from 'lit/directives/ref.js';
 import {
   allowAnonymousCommentsContext,
   baseUrlContext,
@@ -9,11 +9,12 @@ import {
   kindContext,
   nameContext,
 } from './context';
-import { state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import type { User } from '@halo-dev/api-client';
 import baseStyles from './styles/base';
 import { consume } from '@lit/context';
 import varStyles from './styles/var';
+import './icons/icon-loading';
 
 export class BaseForm extends LitElement {
   @consume({ context: baseUrlContext })
@@ -39,6 +40,9 @@ export class BaseForm extends LitElement {
   @consume({ context: nameContext })
   @state()
   name = '';
+
+  @property({ type: Boolean })
+  submitting = false;
 
   textareaRef: Ref<HTMLTextAreaElement> = createRef<HTMLTextAreaElement>();
 
@@ -179,13 +183,20 @@ export class BaseForm extends LitElement {
             : ''}
           <div class="form__actions">
             <emoji-button @emoji-select=${this.onEmojiSelect}></emoji-button>
-            <button type="submit" class="form__button--submit">
-              <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" class="h-full w-full">
-                <path
-                  fill="currentColor"
-                  d="M8 7.71L18 12L8 16.29v-3.34l7.14-.95L8 11.05V7.71M12 2a10 10 0 0 1 10 10a10 10 0 0 1-10 10A10 10 0 0 1 2 12A10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8a8 8 0 0 0 8 8a8 8 0 0 0 8-8a8 8 0 0 0-8-8Z"
-                ></path>
-              </svg>
+            <button .disabled=${this.submitting} type="submit" class="form__button--submit">
+              ${this.submitting
+                ? html` <icon-loading></icon-loading>`
+                : html` <svg
+                    viewBox="0 0 24 24"
+                    width="1.25em"
+                    height="1.25em"
+                    class="h-full w-full"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8 7.71L18 12L8 16.29v-3.34l7.14-.95L8 11.05V7.71M12 2a10 10 0 0 1 10 10a10 10 0 0 1-10 10A10 10 0 0 1 2 12A10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8a8 8 0 0 0 8 8a8 8 0 0 0 8-8a8 8 0 0 0-8-8Z"
+                    ></path>
+                  </svg>`}
               提交评论
             </button>
           </div>

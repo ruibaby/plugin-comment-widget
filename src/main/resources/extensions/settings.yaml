@@ -8,12 +8,12 @@ spec:
       label: 基本设置
       formSchema:
         - $formkit: number
-          label: 默认加载评论条数
+          label: 评论分页条数
           name: size
           validation: required
           value: 20
         - $formkit: number
-          label: 默认加载回复条数
+          label: 回复分页条数
           name: replySize
           validation: required
           value: 10
