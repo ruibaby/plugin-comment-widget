@@ -1,6 +1,10 @@
-import { html, LitElement } from 'lit';
-import { state } from 'lit/decorators.js';
+import { Comment, CommentRequest, User } from '@halo-dev/api-client';
 import { consume } from '@lit/context';
+import { LitElement, html } from 'lit';
+import { state } from 'lit/decorators.js';
+import { Ref, createRef, ref } from 'lit/directives/ref.js';
+import './base-form';
+import { BaseForm } from './base-form';
 import {
   allowAnonymousCommentsContext,
   baseUrlContext,
@@ -11,11 +15,8 @@ import {
   toastContext,
   versionContext,
 } from './context';
-import { Comment, CommentRequest, User } from '@halo-dev/api-client';
-import { createRef, Ref, ref } from 'lit/directives/ref.js';
-import { BaseForm } from './base-form';
-import './base-form';
 import { ToastManager } from './lit-toast';
+import { getCaptchaCodeHeader, isRequireCaptcha } from './utils/captcha';
 
 export class CommentForm extends LitElement {
   @consume({ context: baseUrlContext })
@@ -53,11 +54,15 @@ export class CommentForm extends LitElement {
   @state()
   submitting = false;
 
+  @state()
+  captcha = '';
+
   baseFormRef: Ref<BaseForm> = createRef<BaseForm>();
 
   override render() {
     return html` <base-form
       .submitting=${this.submitting}
+      .captcha=${this.captcha}
       ${ref(this.baseFormRef)}
       @submit="${this.onSubmit}"
     ></base-form>`;
@@ -110,9 +115,19 @@ export class CommentForm extends LitElement {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...getCaptchaCodeHeader(data.captchaCode),
         },
         body: JSON.stringify(commentRequest),
       });
+
+      if (isRequireCaptcha(response)) {
+        const { captcha, detail } = await response.json();
+        this.captcha = captcha;
+        this.toastManager?.warn(detail);
+        return;
+      }
+
+      this.baseFormRef.value?.handleFetchCaptcha();
 
       if (!response.ok) {
         throw new Error('评论失败，请稍后重试');

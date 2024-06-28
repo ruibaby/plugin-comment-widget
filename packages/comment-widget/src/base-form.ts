@@ -1,20 +1,23 @@
-import './emoji-button';
+import type { User } from '@halo-dev/api-client';
+import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { createRef, Ref, ref } from 'lit/directives/ref.js';
 import {
   allowAnonymousCommentsContext,
   baseUrlContext,
+  captchaEnabledContext,
   currentUserContext,
   groupContext,
   kindContext,
   nameContext,
+  toastContext,
 } from './context';
-import { property, state } from 'lit/decorators.js';
-import type { User } from '@halo-dev/api-client';
-import baseStyles from './styles/base';
-import { consume } from '@lit/context';
-import varStyles from './styles/var';
+import './emoji-button';
 import './icons/icon-loading';
+import { ToastManager } from './lit-toast';
+import baseStyles from './styles/base';
+import varStyles from './styles/var';
 
 export class BaseForm extends LitElement {
   @consume({ context: baseUrlContext })
@@ -29,6 +32,10 @@ export class BaseForm extends LitElement {
   @state()
   allowAnonymousComments = false;
 
+  @consume({ context: captchaEnabledContext, subscribe: true })
+  @state()
+  captchaEnabled = false;
+
   @consume({ context: groupContext })
   @state()
   group = '';
@@ -41,8 +48,16 @@ export class BaseForm extends LitElement {
   @state()
   name = '';
 
+  @property({ type: String })
+  @state()
+  captcha = '';
+
   @property({ type: Boolean })
   submitting = false;
+
+  @consume({ context: toastContext, subscribe: true })
+  @state()
+  toastManager: ToastManager | undefined;
 
   textareaRef: Ref<HTMLTextAreaElement> = createRef<HTMLTextAreaElement>();
 
@@ -56,6 +71,25 @@ export class BaseForm extends LitElement {
       .replaceAll(/-+/g, '-')}`;
 
     return `/console/login?redirect_uri=${encodeURIComponent(window.location.href + parentDomId)}`;
+  }
+
+  get showCaptcha() {
+    return this.captchaEnabled && !this.currentUser;
+  }
+
+  async handleFetchCaptcha() {
+    if (!this.showCaptcha) {
+      return;
+    }
+
+    const response = await fetch(`/apis/api.commentwidget.halo.run/v1alpha1/captcha/-/generate`);
+
+    if (!response.ok) {
+      this.toastManager?.error('获取验证码失败');
+      return;
+    }
+
+    this.captcha = await response.text();
   }
 
   handleOpenLoginPage() {
@@ -124,6 +158,7 @@ export class BaseForm extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('keydown', this.onKeydown);
+    this.handleFetchCaptcha();
   }
 
   override disconnectedCallback(): void {
@@ -182,6 +217,20 @@ export class BaseForm extends LitElement {
               </button> `
             : ''}
           <div class="form__actions">
+            ${this.showCaptcha
+              ? html`
+                  <div class="form__action--captcha">
+                    <input name="captchaCode" type="text" placeholder="请输入验证码" />
+                    <img
+                      @click=${this.handleFetchCaptcha}
+                      src="${this.captcha}"
+                      alt="captcha"
+                      width="100%"
+                    />
+                  </div>
+                `
+              : ''}
+
             <emoji-button @emoji-select=${this.onEmojiSelect}></emoji-button>
             <button .disabled=${this.submitting} type="submit" class="form__button--submit">
               ${this.submitting
@@ -286,7 +335,7 @@ export class BaseForm extends LitElement {
         border: 0.05em solid var(--component-form-input-border-color);
         font-size: 0.875em;
         display: block;
-        height: 2.25em;
+        height: 2.65em;
         max-width: 100%;
         outline: 0;
         padding: 0.4em 0.75em;
@@ -349,10 +398,24 @@ export class BaseForm extends LitElement {
 
       .form__actions {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 0.75em;
-        flex: 1 1 auto;
+        width: 100%;
         justify-content: flex-end;
+      }
+
+      .form__action--captcha {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+        flex-direction: row-reverse;
+      }
+
+      .form__action--captcha img {
+        height: 2.25em;
+        width: auto;
+        border-radius: var(--base-border-radius);
       }
 
       .form__button--submit {

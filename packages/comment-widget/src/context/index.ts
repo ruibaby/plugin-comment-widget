@@ -18,6 +18,8 @@ export const allowAnonymousCommentsContext = createContext<boolean>(
   Symbol('allowAnonymousComments')
 );
 
+export const captchaEnabledContext = createContext<boolean>(Symbol('captchaEnabledContext'));
+
 export const currentUserContext = createContext<User | undefined>(Symbol('currentUser'));
 
 export const emojiDataUrlContext = createContext<string>(Symbol('emojiDataUrl'));

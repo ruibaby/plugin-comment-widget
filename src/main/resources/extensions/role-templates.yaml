@@ -1,0 +1,14 @@
+apiVersion: v1alpha1
+kind: Role
+metadata:
+  name: comment-widget-public-apis
+  labels:
+    halo.run/role-template: "true"
+    rbac.authorization.halo.run/aggregate-to-anonymous: "true"
+  annotations:
+    rbac.authorization.halo.run/module: "Comment Widget"
+    rbac.authorization.halo.run/display-name: "Comment Widget Public APIs"
+rules:
+  - apiGroups: [ "api.commentwidget.halo.run" ]
+    resources: [ "captcha/generate" ]
+    verbs: [ "get" ]

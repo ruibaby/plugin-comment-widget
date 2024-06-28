@@ -30,6 +30,7 @@ public class DefaultCommentWidget implements CommentWidget {
 
     private final PluginWrapper pluginWrapper;
     private final SettingFetcher settingFetcher;
+    private final SettingConfigGetter settingConfigGetter;
 
     @Override
     public void render(ITemplateContext context,
@@ -40,7 +41,7 @@ public class DefaultCommentWidget implements CommentWidget {
         IAttribute nameAttribute = tag.getAttribute("name");
 
         structureHandler.replaceWith(commentHtml(groupAttribute, kindAttribute, nameAttribute),
-                false);
+            false);
     }
 
     private String commentHtml(IAttribute groupAttribute, IAttribute kindAttribute,
@@ -65,41 +66,49 @@ public class DefaultCommentWidget implements CommentWidget {
         properties.setProperty("domId", domIdFrom(group, kindAttribute.getValue(), nameAttribute.getValue()));
 
         var basicConfig = settingFetcher.fetch(BasicConfig.GROUP, BasicConfig.class)
-                .orElse(new BasicConfig());
+            .orElse(new BasicConfig());
         properties.setProperty("size", String.valueOf(basicConfig.getSize()));
         properties.setProperty("replySize", String.valueOf(basicConfig.getReplySize()));
         properties.setProperty("withReplies", String.valueOf(basicConfig.isWithReplies()));
         properties.setProperty("withReplySize", String.valueOf(basicConfig.getWithReplySize()));
 
         var avatarConfig = settingFetcher.fetch(AvatarConfig.GROUP, AvatarConfig.class)
-                .orElse(new AvatarConfig());
+            .orElse(new AvatarConfig());
         properties.setProperty("useAvatarProvider", String.valueOf(avatarConfig.isEnable()));
         properties.setProperty("avatarProvider", String.valueOf(avatarConfig.getProvider()));
         properties.setProperty("avatarProviderMirror", String.valueOf(avatarConfig.getProviderMirror()));
         properties.setProperty("avatarPolicy", String.valueOf(avatarConfig.getPolicy()));
 
+        var captcha = settingConfigGetter.getSecurityConfig()
+            .map(SettingConfigGetter.SecurityConfig::getCaptcha)
+            .map(SettingConfigGetter.CaptchaConfig::isAnonymousCommentCaptcha)
+            .blockOptional()
+            .orElse(false);
+        properties.setProperty("captchaEnabled", String.valueOf(captcha));
+
         // placeholderHelper only support string, so we need to convert boolean to string
         return PROPERTY_PLACEHOLDER_HELPER.replacePlaceholders("""
-                <div id="${domId}"></div>
-                <script>
-                  CommentWidget.init(
-                    "#${domId}",
-                    {
-                      group: "${group}",
-                      kind: "${kind}",
-                      name: "${name}",
-                      size: ${size},
-                      replySize: ${replySize},
-                      withReplies: ${withReplies},
-                      withReplySize: ${withReplySize},
-                      useAvatarProvider: ${useAvatarProvider},
-                      avatarProvider: "${avatarProvider}",
-                      avatarProviderMirror: "${avatarProviderMirror}",
-                      avatarPolicy: "${avatarPolicy}",
-                    }
-                  );
-                </script>
-                """, properties);
+            <div id="${domId}"></div>
+            <script>
+              CommentWidget.init(
+                "#${domId}",
+                {
+                  group: "${group}",
+                  kind: "${kind}",
+                  name: "${name}",
+                  size: ${size},
+                  replySize: ${replySize},
+                  withReplies: ${withReplies},
+                  withReplySize: ${withReplySize},
+                  useAvatarProvider: ${useAvatarProvider},
+                  avatarProvider: "${avatarProvider}",
+                  avatarProviderMirror: "${avatarProviderMirror}",
+                  avatarPolicy: "${avatarPolicy}",
+                  captchaEnabled: ${captchaEnabled},
+                }
+              );
+            </script>
+            """, properties);
     }
 
     @Data
@@ -125,11 +134,11 @@ public class DefaultCommentWidget implements CommentWidget {
         Assert.notNull(kind, "The kind must not be null.");
         String groupKindNameAsDomId = String.join("-", group, kind, name);
         return "comment-" + groupKindNameAsDomId.replaceAll("[^\\-_a-zA-Z0-9\\s]", "-")
-                .replaceAll("(-)+", "-");
+            .replaceAll("(-)+", "-");
     }
 
     private String getGroup(IAttribute groupAttribute) {
         return groupAttribute.getValue() == null ? ""
-                : StringUtils.defaultString(groupAttribute.getValue());
+            : StringUtils.defaultString(groupAttribute.getValue());
     }
 }

@@ -1,11 +1,26 @@
-import { css, html, LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
 import { CommentVoList, User } from '@halo-dev/api-client';
-import { repeat } from 'lit/directives/repeat.js';
-import baseStyles from './styles/base';
 import { provide } from '@lit/context';
+import { LitElement, css, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import {
+  AllUserPolicy,
+  AnonymousUserPolicy,
+  AvatarPolicyEnum,
+  NoAvatarUserPolicy,
+  setPolicyInstance,
+} from './avatar/avatar-policy';
+import { setAvatarProvider } from './avatar/providers';
+import './comment-form';
+import './comment-item';
+import './comment-pagination';
+import {
+  allowAnonymousCommentsContext,
+  avatarPolicyContext,
+  avatarProviderContext,
+  avatarProviderMirrorContext,
   baseUrlContext,
+  captchaEnabledContext,
   currentUserContext,
   emojiDataUrlContext,
   groupContext,
@@ -13,27 +28,13 @@ import {
   nameContext,
   replySizeContext,
   toastContext,
+  useAvatarProviderContext,
   versionContext,
   withRepliesContext,
-  allowAnonymousCommentsContext,
-  useAvatarProviderContext,
-  avatarPolicyContext,
-  avatarProviderContext,
-  avatarProviderMirrorContext,
 } from './context';
-import './comment-form';
-import './comment-item';
-import './comment-pagination';
-import varStyles from './styles/var';
 import { ToastManager } from './lit-toast';
-import {
-  AnonymousUserPolicy,
-  AllUserPolicy,
-  NoAvatarUserPolicy,
-  AvatarPolicyEnum,
-  setPolicyInstance,
-} from './avatar/avatar-policy';
-import { setAvatarProvider } from './avatar/providers';
+import baseStyles from './styles/base';
+import varStyles from './styles/var';
 
 export class CommentWidget extends LitElement {
   @provide({ context: baseUrlContext })
@@ -97,6 +98,10 @@ export class CommentWidget extends LitElement {
   @provide({ context: allowAnonymousCommentsContext })
   @state()
   allowAnonymousComments = false;
+
+  @provide({ context: captchaEnabledContext })
+  @property({ type: Boolean, attribute: 'enable-captcha' })
+  captchaEnabled = false;
 
   @provide({ context: toastContext })
   @state()

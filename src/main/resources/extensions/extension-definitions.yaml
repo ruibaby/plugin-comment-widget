@@ -1,0 +1,9 @@
+apiVersion: plugin.halo.run/v1alpha1
+kind: ExtensionDefinition
+metadata:
+  name: default-comment-widget
+spec:
+  className: run.halo.comment.widget.DefaultCommentWidget
+  extensionPointName: comment-widget
+  displayName: "默认评论组件"
+  description: "Halo 默认提供的评论组件插件"

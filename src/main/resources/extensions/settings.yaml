@@ -31,6 +31,29 @@ spec:
           key: withReplySize
           validation: required
           value: 5
+    - group: security
+      label: 安全设置
+      formSchema:
+        - $formkit: group
+          name: captcha
+          label: 验证码
+          children:
+            - $formkit: checkbox
+              label: 匿名评论需要验证码
+              name: anonymousCommentCaptcha
+              id: anonymousCommentCaptcha
+              key: anonymousCommentCaptcha
+              value: false
+            - $formkit: select
+              label: 验证码类型
+              if: "$get(anonymousCommentCaptcha).value === true"
+              name: type
+              value: "ALPHANUMERIC"
+              options:
+                - label: 字母数字组合
+                  value: "ALPHANUMERIC"
+                - label: 算术验证码
+                  value: "ARITHMETIC"
     - group: avatar
       label: 头像设置
       formSchema:

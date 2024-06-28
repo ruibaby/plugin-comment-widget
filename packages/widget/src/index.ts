@@ -15,6 +15,7 @@ interface Props {
   avatarProvider?: string;
   avatarProviderMirror?: string;
   avatarPolicy?: string;
+  captchaEnabled: boolean;
 }
 
 export function init(el: string, props: Props) {
@@ -42,6 +43,7 @@ export function init(el: string, props: Props) {
   commentWidget.avatarProvider = props.avatarProvider || '';
   commentWidget.avatarProviderMirror = props.avatarProviderMirror || '';
   commentWidget.avatarPolicy = props.avatarPolicy || '';
+  commentWidget.captchaEnabled = props.captchaEnabled || false;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

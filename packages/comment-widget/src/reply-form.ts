@@ -1,17 +1,18 @@
-import './base-form';
 import { CommentVo, Reply, ReplyRequest, ReplyVo, User } from '@halo-dev/api-client';
-import { html, LitElement } from 'lit';
-import { createRef, Ref, ref } from 'lit/directives/ref.js';
+import { consume } from '@lit/context';
+import { LitElement, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import { Ref, createRef, ref } from 'lit/directives/ref.js';
+import './base-form';
+import { BaseForm } from './base-form';
 import {
   allowAnonymousCommentsContext,
   baseUrlContext,
   currentUserContext,
   toastContext,
 } from './context';
-import { property, state } from 'lit/decorators.js';
-import { BaseForm } from './base-form';
-import { consume } from '@lit/context';
 import { ToastManager } from './lit-toast';
+import { getCaptchaCodeHeader, isRequireCaptcha } from './utils/captcha';
 
 export class ReplyForm extends LitElement {
   @consume({ context: baseUrlContext })
@@ -39,6 +40,9 @@ export class ReplyForm extends LitElement {
   @state()
   submitting = false;
 
+  @state()
+  captcha = '';
+
   baseFormRef: Ref<BaseForm> = createRef<BaseForm>();
 
   override connectedCallback(): void {
@@ -53,6 +57,7 @@ export class ReplyForm extends LitElement {
   override render() {
     return html` <base-form
       .submitting=${this.submitting}
+      .captcha=${this.captcha}
       ${ref(this.baseFormRef)}
       @submit="${this.onSubmit}"
     ></base-form>`;
@@ -105,10 +110,20 @@ export class ReplyForm extends LitElement {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            ...getCaptchaCodeHeader(data.captchaCode),
           },
           body: JSON.stringify(replyRequest),
         }
       );
+
+      if (isRequireCaptcha(response)) {
+        const { captcha, detail } = await response.json();
+        this.captcha = captcha;
+        this.toastManager?.warn(detail);
+        return;
+      }
+
+      this.baseFormRef.value?.handleFetchCaptcha();
 
       if (!response.ok) {
         throw new Error('评论失败，请稍后重试');
