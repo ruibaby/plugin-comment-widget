@@ -37,6 +37,9 @@ spec:
         - $formkit: group
           name: captcha
           label: 验证码
+          value:
+            enable: false
+            type: ALPHANUMERIC
           children:
             - $formkit: checkbox
               label: 匿名评论需要验证码
@@ -68,8 +71,8 @@ spec:
           if: "$get(enable).value === true"
           name: provider
           options:
-            - label: 'Gravatar'
-              value: 'gravatar'
+            - label: "Gravatar"
+              value: "gravatar"
           value: "gravatar"
         - $formkit: text
           label: 头像服务镜像地址
@@ -82,10 +85,10 @@ spec:
           if: "$get(enable).value === true"
           name: policy
           options:
-            - label: '仅匿名用户'
-              value: 'anonymousUser'
-            - label: '所有用户'
-              value: 'allUser'
-            - label: '匿名&无头像用户'
-              value: 'noAvatarUser'
+            - label: "仅匿名用户"
+              value: "anonymousUser"
+            - label: "所有用户"
+              value: "allUser"
+            - label: "匿名&无头像用户"
+              value: "noAvatarUser"
           value: "anonymousUser"

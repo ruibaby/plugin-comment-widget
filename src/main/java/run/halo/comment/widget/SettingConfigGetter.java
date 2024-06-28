@@ -15,7 +15,7 @@ public interface SettingConfigGetter {
     @Accessors(chain = true)
     class SecurityConfig {
         @Getter(onMethod_ = @NonNull)
-        private CaptchaConfig captcha;
+        private CaptchaConfig captcha = CaptchaConfig.empty();
 
         public SecurityConfig setCaptcha(CaptchaConfig captcha) {
             this.captcha = (captcha == null ? CaptchaConfig.empty() : captcha);
