@@ -8,7 +8,7 @@ metadata:
     "store.halo.run/app-id": "app-YXyaD"
 spec:
   enabled: true
-  requires: ">=2.15.0"
+  requires: ">=2.17.0"
   author:
     name: Halo
     website: https://github.com/halo-dev

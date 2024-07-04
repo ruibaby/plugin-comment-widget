@@ -9,11 +9,26 @@ import run.halo.comment.widget.captcha.CaptchaType;
 
 public interface SettingConfigGetter {
 
+    /**
+     * Never {@link Mono#empty()}.
+     */
+    Mono<BasicConfig> getBasicConfig();
+
+    /**
+     * Never {@link Mono#empty()}.
+     */
+    Mono<AvatarConfig> getAvatarConfig();
+
+    /**
+     * Never {@link Mono#empty()}.
+     */
     Mono<SecurityConfig> getSecurityConfig();
 
     @Data
     @Accessors(chain = true)
     class SecurityConfig {
+        public static final String GROUP = "security";
+
         @Getter(onMethod_ = @NonNull)
         private CaptchaConfig captcha = CaptchaConfig.empty();
 
@@ -45,5 +60,23 @@ public interface SettingConfigGetter {
         public static CaptchaConfig empty() {
             return new CaptchaConfig();
         }
+    }
+
+    @Data
+    class BasicConfig {
+        public static final String GROUP = "basic";
+        private int size;
+        private int replySize;
+        private boolean withReplies;
+        private int withReplySize;
+    }
+
+    @Data
+    class AvatarConfig {
+        public static final String GROUP = "avatar";
+        private boolean enable;
+        private String provider;
+        private String providerMirror;
+        private String policy;
     }
 }
