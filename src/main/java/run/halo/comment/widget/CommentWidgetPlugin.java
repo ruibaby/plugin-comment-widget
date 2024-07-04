@@ -1,8 +1,8 @@
 package run.halo.comment.widget;
 
-import org.pf4j.PluginWrapper;
 import org.springframework.stereotype.Component;
 import run.halo.app.plugin.BasePlugin;
+import run.halo.app.plugin.PluginContext;
 
 /**
  * @author ryanwang
@@ -10,15 +10,7 @@ import run.halo.app.plugin.BasePlugin;
  */
 @Component
 public class CommentWidgetPlugin extends BasePlugin {
-    public CommentWidgetPlugin(PluginWrapper wrapper) {
-        super(wrapper);
-    }
-
-    @Override
-    public void start() {
-    }
-
-    @Override
-    public void stop() {
+    public CommentWidgetPlugin(PluginContext pluginContext) {
+        super(pluginContext);
     }
 }

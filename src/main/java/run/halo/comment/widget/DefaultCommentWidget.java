@@ -4,7 +4,6 @@ import java.util.Properties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.pf4j.PluginWrapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
@@ -12,7 +11,7 @@ import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.model.IAttribute;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
-import run.halo.app.plugin.SettingFetcher;
+import run.halo.app.plugin.PluginContext;
 import run.halo.app.theme.dialect.CommentWidget;
 
 /**
@@ -27,7 +26,7 @@ import run.halo.app.theme.dialect.CommentWidget;
 public class DefaultCommentWidget implements CommentWidget {
     static final PropertyPlaceholderHelper PROPERTY_PLACEHOLDER_HELPER = new PropertyPlaceholderHelper("${", "}");
 
-    private final PluginWrapper pluginWrapper;
+    private final PluginContext pluginContext;
     private final SettingConfigGetter settingConfigGetter;
 
     @Override
@@ -57,7 +56,7 @@ public class DefaultCommentWidget implements CommentWidget {
 
         final Properties properties = new Properties();
 
-        properties.setProperty("version", pluginWrapper.getDescriptor().getVersion());
+        properties.setProperty("version", pluginContext.getVersion());
         properties.setProperty("group", group);
         properties.setProperty("kind", kindAttribute.getValue());
         properties.setProperty("name", nameAttribute.getValue());
