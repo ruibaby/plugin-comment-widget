@@ -201,7 +201,7 @@ export class BaseForm extends LitElement {
                 type="url"
                 placeholder="网站"
               />
-              <a href=${this.loginUrl} rel="nofollow"> （已有该站点的账号） </a>
+              <a href=${this.loginUrl} rel="nofollow">（或登录账号）</a>
             </div>`
           : ''}
 
