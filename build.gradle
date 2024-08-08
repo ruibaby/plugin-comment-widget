@@ -41,6 +41,6 @@ build {
 }
 
 halo {
-    version = "2.15.0-rc.1"
+    version = "2.18.0"
     debug = true
 }

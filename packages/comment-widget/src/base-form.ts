@@ -74,7 +74,7 @@ export class BaseForm extends LitElement {
   }
 
   get showCaptcha() {
-    return this.captchaEnabled && !this.currentUser;
+    return this.captchaEnabled && !this.currentUser && this.allowAnonymousComments;
   }
 
   async handleFetchCaptcha() {
