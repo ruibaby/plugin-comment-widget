@@ -3,6 +3,7 @@ import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { createRef, Ref, ref } from 'lit/directives/ref.js';
+import { debounce } from 'lodash-es';
 import {
   allowAnonymousCommentsContext,
   baseUrlContext,
@@ -254,6 +255,13 @@ export class BaseForm extends LitElement {
     `;
   }
 
+  private debouncedSubmit = debounce((data: Record<string, unknown>) => {
+    const event = new CustomEvent('submit', {
+      detail: data,
+    });
+    this.dispatchEvent(event);
+  }, 300);
+
   onSubmit(e: Event) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -270,10 +278,7 @@ export class BaseForm extends LitElement {
       })
     );
 
-    const event = new CustomEvent('submit', {
-      detail: data,
-    });
-    this.dispatchEvent(event);
+    this.debouncedSubmit(data);
   }
 
   resetForm() {

@@ -62,7 +62,7 @@ jobs:
           sed -i "s/version=.*-SNAPSHOT$/version=$version/1" gradle.properties
           ./gradlew clean build -x test
       - name: Archive plugin-comment-widget jar
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: plugin-comment-widget
           path: |
@@ -75,7 +75,7 @@ jobs:
     if: github.event_name == 'release'
     steps:
       - name: Download plugin-comment-widget jar
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: plugin-comment-widget
           path: build/libs
@@ -123,7 +123,7 @@ jobs:
         with:
           submodules: true
       - name: Download plugin-comment-widget jar
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: plugin-comment-widget
           path: build/libs
